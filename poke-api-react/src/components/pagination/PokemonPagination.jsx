@@ -20,14 +20,18 @@ export const PokemonPagination = ({ onOffsetChange }) => {
 
   const PageShorcuts = ({ currentPage, totalPages }) => {
     const pages = [];
-    let start = Math.max(currentPage - 3, 0);
-    let end = Math.min(currentPage + 2, totalPages);
-
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(<PageButton key={i} page={i}></PageButton>);
+    let start = Math.max(currentPage - 1, 1);
+    let end = Math.min(start + 2, totalPages);
+    
+    if (end - start <2){
+      start = Math.max(end - 2, 1)
     }
 
-    return <div className="flex gap-1">{pages.slice(start, end)}</div>;
+    for (let i = start; i <= end; i++) {
+      pages.push(<PageButton key={i} page={i} />);
+    }
+
+    return <div className="flex gap-1">{pages}</div>;
   };
 
   const PagingButton = ({ step }) => {
